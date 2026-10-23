@@ -22,6 +22,7 @@ import {
   normalizeRewrites,
 } from './routing';
 import { generateToolbarScript } from './toolbar';
+import { injectDefaultTracing } from './tracing';
 import type { VercelConfig } from './types';
 import { escapeStringRegexp, getImagesConfig } from './utils';
 
@@ -88,6 +89,8 @@ const myAdapter: NextAdapter = {
         `./.vercel/adapter-toolbar-script.js`
       );
     }
+
+    await injectDefaultTracing(config, ctx);
 
     return config;
   },
